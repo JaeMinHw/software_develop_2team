@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -21,26 +22,10 @@ public class waiting_room extends JFrame {
 
 	public waiting_room() {
 		ArrayList<String> RoomList = null;
-//		try {
-//
-//			Socket socket = new Socket("192.168.0.18", 8888);
-//
-//			InputStream is = socket.getInputStream();
-//
-//			ObjectInputStream ois = new ObjectInputStream(is);
-//
-//			MessageProtocol m = new MessageProtocol();
-//			if (m.TYPE == "RoomList") {
-//				RoomList = (ArrayList<String>) ois.readObject();
-//			}
-//
-//		} catch (IOException e1) {
-//			System.out.println("오류");
-//			e1.printStackTrace();
-//		} catch (ClassNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		MessageProtocol m = new MessageProtocol();
+		if (m.TYPE == "RoomList") {
+			RoomList = m.RoomList;
+		}
 
 		String[] room = { "수다 떨 사람", "롤 같이 할 사람", "배그 듀오", "배그 스쿼드", "노래방" };
 		JFrame frm = new JFrame();
@@ -85,7 +70,14 @@ public class waiting_room extends JFrame {
 					m.TYPE = "room";
 					m.room = room;
 
-					new connect("send");
+					connect c = new connect();
+					try {
+						c.send();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
 					new chat();
 					frm.setVisible(false);
 				}

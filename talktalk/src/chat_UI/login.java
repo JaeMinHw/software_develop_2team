@@ -3,6 +3,7 @@ package chat_UI;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -75,7 +76,16 @@ public class login extends JFrame {
 					who w = new who();
 					w.id_name = id;
 
-					new connect("send");
+					connect fir = new connect();
+					fir.firstconnect();
+					MessageProtocol m1 = new MessageProtocol();
+
+					try {
+						fir.send();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 
 					new waiting_room();
 					frm.setVisible(false);

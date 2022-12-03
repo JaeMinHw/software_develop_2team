@@ -3,6 +3,7 @@ package chat_UI;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -55,7 +56,13 @@ public class create_room {
 					m.TYPE = "Room";
 					m.room = room;
 
-					new connect("send");
+					connect c1 = new connect();
+					try {
+						c1.send();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 
 					new chat();
 
